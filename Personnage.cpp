@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 #include "Personnage.h"
-
+//#include "Lieu.h"
 
 Personnage::Personnage(string n)
 {
@@ -15,6 +15,14 @@ void Personnage::parle(const string text)
 {
   cout << text << endl;
 }
+
+/*
+void Personnage::deplace(string destination, const Lieu* l)
+{
+  if (this->lieu->Lieu::distance(destination, &l)==-1)
+    
+}
+*/
 
 Personnage::~Personnage()
 {
