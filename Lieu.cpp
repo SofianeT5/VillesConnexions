@@ -9,12 +9,8 @@ using namespace std;
 
 long Lieu::compteur = 0;
 
-Lieu::Lieu()
-{
-  this->name = "Nulle part";
-}
 
-Lieu::Lieu(string n)
+Lieu::Lieu(string n="nulle part")
 {
   this->name=n;
   this->numero=compteur;
@@ -34,6 +30,10 @@ Lieu::Lieu(string n)
 string Lieu::getNom()
 {
   return this->name;
+}
+
+void Lieu::setNom(string n){
+    this->name = n;
 }
 
 Lieu::~Lieu()

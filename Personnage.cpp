@@ -50,3 +50,4 @@ Personnage::~Personnage()
 {
   this->parle("Il n'y a plus rien à faire ici pour moi, " + this->name + ". Adieu!");
 }
+

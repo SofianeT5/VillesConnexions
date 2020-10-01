@@ -6,7 +6,7 @@ using namespace std;
 
 Carte::Carte()
 {
-  this->villes = new Lieu*[N];
+    this->villes =(Lieu**) malloc(N*sizeof(Lieu*));
 }
 
 Carte::~Carte()
@@ -38,3 +38,4 @@ void Carte::removeConnexion(connectionType_t mt, Lieu* l1, Lieu* l2)
 {
   l1->Lieu::removeConnexion(mt, l2);
 }
+

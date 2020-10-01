@@ -13,13 +13,14 @@ class Scenario{
   long nbPers;
 
  public:
-
   Scenario();
-  void initScenario();
   ~Scenario();
   Carte getCarte();
   Personnage getPersonnage(std::string name);
   long getNbPers();
+  void initPersonnages();
+  void initCarte();
+  void initScenario();
 };
 
 #endif

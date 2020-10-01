@@ -13,15 +13,16 @@ class Lieu{
  private:
   Lieu** bateau;
   Lieu** train;
+  std::string name;
 
  public:
-  std::string name;
   long numero;
   long nbBateau;
   long nbTrain;
   static long compteur;
   Lieu();
   Lieu(std::string);
+  void setNom(std::string);
   std::string getNom();
   void addConnexion(connectionType_t, Lieu*);
   void removeConnexion(connectionType_t, Lieu*);

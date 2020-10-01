@@ -8,16 +8,15 @@
 
 class Carte{
  private:
-  Lieu** villes;
 
  public:
+  Lieu** villes;
   long nbVilles;
   Carte();
   Lieu* addLieu(std::string);
   Lieu* getLieu(std::string);
   void addConnexion(connectionType_t, Lieu*, Lieu*);
   void removeConnexion(connectionType_t, Lieu*, Lieu*);
-  void initCarte();
   ~Carte();
 };
 

@@ -1,39 +1,15 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include "Scenario.h"
+
 using namespace std;
-#include "Carte.h"
 
 int main()
 {
-  /* Personnage *m = new Personnage("Mohamed");
-  delete m;
-  Personnage *s = new Personnage("Sofiane");
-  delete s;*/
- /* Carte* map = new Carte();
-  Lieu* l1 = map->addLieu("Paris");
-  Lieu* l2 = map->addLieu("Lyon");
-  Lieu* l3 = map->addLieu("Marseille");
-  map->addConnexion(TRAIN, l1, l2);
-  map->addConnexion(BATEAU, l2, l3);
-  map->addConnexion(TRAIN, l3, l1);
-  map->removeConnexion(TRAIN, l3, l1);
-  cout << l1->nbTrain << endl;
-  */
-  
-  Lieu *l1 = new Lieu("Paris");
-  Lieu *l2 = new Lieu("Lyon");
-  Lieu *l3 = new Lieu("Marseille");
-  Personnage *p = new Personnage("Sofiane");
-  l1->addConnexion(TRAIN, l2);
-  l2->addConnexion(TRAIN, l3);
 
-  p->lieu = l1;
-  p->deplace(TRAIN,l3);
+  Scenario* s = new Scenario();
+  s->initScenario();
 
-  delete l1;
-  delete l2;
-  delete l3;
-  
   return 0;
 }
