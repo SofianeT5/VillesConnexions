@@ -26,14 +26,9 @@ int main()
   Lieu *l2 = new Lieu("Lyon");
   Lieu *l3 = new Lieu("Marseille");
   l1->addConnexion(TRAIN, l2);
-  l2->addConnexion(BATEAU, l3);
-  l3->addConnexion(TRAIN, l1);
-  if (l2->estAccessible(TRAIN,*(l1)))
-      cout << l1->name << " est connecte a " << l2->name << endl;
-  else
-      cout << "non connecte" << endl;
-  l3->removeConnexion(TRAIN, l1);
-  cout << l1->nbTrain << endl;
+  l2->addConnexion(TRAIN, l3);
+  long distance = l1->distance(TRAIN,*(l3)) ;
+  cout << "distance : " << distance << endl;
   delete l1;
   delete l2;
   delete l3;
