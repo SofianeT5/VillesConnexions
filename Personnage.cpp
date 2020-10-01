@@ -1,10 +1,15 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-using namespace std;
 #include "Personnage.h"
-//#include "Lieu.h"
 
+using namespace std;
+
+
+Personnage::Personnage()
+{
+    this->name="Personne";
+}
 Personnage::Personnage(string n)
 {
   this->name=n;

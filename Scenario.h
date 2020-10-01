@@ -1,16 +1,20 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "Personnage.h"
+#include "Carte.h"
 
 class Scenario{
  private:
   Carte carte;
   Personnage* personnages;
+  long nbPers;
 
  public:
-  long nbPers;
+
   Scenario();
   void initScenario();
   ~Scenario();
+  Carte getCarte();
+  Personnage getPersonnage(std::string name);
+  long getNbPers();
 };

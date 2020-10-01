@@ -1,9 +1,9 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "Lieu.h"
 #include <queue>
 #include <set>
+#include "Lieu.h"
 
 using namespace std;
 
@@ -11,7 +11,7 @@ long Lieu::compteur = 0;
 
 Lieu::Lieu()
 {
-  Lieu::Lieu("Nulle part");
+  this->name = "Nulle part";
 }
 
 Lieu::Lieu(string n)
@@ -163,7 +163,7 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
         }
       }
 
-      else( mt == BATEAU)
+      else
       {
         for(int i = 0 ; i < N ; i++)
         {

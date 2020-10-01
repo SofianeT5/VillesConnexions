@@ -1,7 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-#include "Lieu.h"
+#include "Personnage.h"
 
 class Carte{
  private:

@@ -1,17 +1,18 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-//#include "Lieu.h"
+#include "Lieu.h"
 
 class Personnage{
  private:
   std::string name;
   std::string text;
-  //Lieu* lieu;
+  Lieu* lieu;
 
  public:
+  Personnage();
   Personnage(std::string);
   void parle(const std::string);
-  //void deplace(std::string, const Lieu* l);
+  void deplace(connectionType_t mt, const Lieu* l);
   ~Personnage();
 };

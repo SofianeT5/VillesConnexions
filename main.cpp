@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-#include "Personnage.h"
 #include "Carte.h"
 
 int main()
