@@ -8,11 +8,11 @@ enum connectionType_t{NONE, TRAIN, BATEAU, ALL};
 
 class Lieu{
  private:
-  std::string name;
   Lieu** bateau;
   Lieu** train;
 
  public:
+  std::string name;
   long numero;
   long nbBateau;
   long nbTrain;

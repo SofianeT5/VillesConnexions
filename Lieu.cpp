@@ -1,8 +1,9 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
-using namespace std;
 #include "Lieu.h"
+
+using namespace std;
 
 long Lieu::compteur = 0;
 
@@ -48,6 +49,7 @@ void Lieu::addConnexion(connectionType_t mt, Lieu* l)
       this->nbTrain++;
       l->nbTrain++;
     }
+  /*Peut etre si on a mt == ALL, on devrait l'ajouter aux deux tableaux*/
 }
 
 void Lieu::removeConnexion(connectionType_t mt, Lieu* l)
@@ -76,10 +78,12 @@ bool Lieu::estAccessible(connectionType_t mt, const Lieu& l)
     return false;
   if (mt==BATEAU)
     return (this->bateau[l.numero]==&l);
-  if (mt==TRAIN)
+  else if (mt==TRAIN)
     return (this->train[l.numero]==&l);
-  if (mt==ALL)
+  else if (mt==ALL)
     return ((this->bateau[l.numero]==&l) || (this->train[l.numero]==&l));
+  else
+    return false; 
 }
 /*
 long distance(connectionType_t mt, const Lieu& l)
@@ -115,3 +119,25 @@ long distance(connectionType_t mt, const Lieu& l)
     }
 }
 */
+
+long distance(connectionType_t mt,const Lieu& l)
+{
+    std::queue<std::pair<int,int>> file;
+    std::set<int> visited;
+
+    int i1 = this->numero;
+    int i2 = l->numero;
+
+    file.push(std::make_pair(i1,0));
+    visited.insert(i1);
+
+    while(!file.empty()) {
+        
+      int ind_ville = file.front().first;
+      int distance = file.front().second;
+      file.pop();
+        
+      for(int i = 0 ; i < this->nb
+
+    }
+}
