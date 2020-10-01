@@ -1,3 +1,6 @@
+#ifndef _CARTE_H
+#define _CARTE_H
+
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -17,3 +20,5 @@ class Carte{
   void initCarte();
   ~Carte();
 };
+
+#endif

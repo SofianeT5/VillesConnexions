@@ -1,3 +1,6 @@
+#ifndef _LIEU_H
+#define _LIEU_H
+
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -26,3 +29,5 @@ class Lieu{
   long distance(connectionType_t, const Lieu&);
   ~Lieu();
 };
+
+#endif

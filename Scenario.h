@@ -1,3 +1,6 @@
+#ifndef _SCENARIO_H
+#define _SCNEARIO_H
+
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -18,3 +21,5 @@ class Scenario{
   Personnage getPersonnage(std::string name);
   long getNbPers();
 };
+
+#endif

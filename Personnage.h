@@ -1,3 +1,6 @@
+#ifndef _PERSONNAGE_H
+#define _PERSONNAGE_H
+
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -14,5 +17,8 @@ class Personnage{
   Personnage(std::string);
   void parle(const std::string);
   void deplace(connectionType_t mt, const Lieu* l);
+  void setNom(std::string name);
   ~Personnage();
 };
+
+#endif
