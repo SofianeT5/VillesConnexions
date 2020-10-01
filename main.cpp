@@ -24,10 +24,13 @@ int main()
   Lieu *l1 = new Lieu("Paris");
   Lieu *l2 = new Lieu("Lyon");
   Lieu *l3 = new Lieu("Marseille");
+  Personnage *p = new Personnage("Sofiane");
   l1->addConnexion(TRAIN, l2);
   l2->addConnexion(TRAIN, l3);
-  long distance = l1->distance(TRAIN,*(l3)) ;
-  cout << "distance : " << distance << endl;
+
+  p->lieu = l1;
+  p->deplace(TRAIN,l3);
+
   delete l1;
   delete l2;
   delete l3;

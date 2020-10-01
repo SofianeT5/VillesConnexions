@@ -10,9 +10,9 @@ class Personnage{
  private:
   std::string name;
   std::string text;
-  Lieu* lieu;
 
  public:
+  Lieu* lieu;
   Personnage();
   Personnage(std::string);
   void parle(const std::string);
