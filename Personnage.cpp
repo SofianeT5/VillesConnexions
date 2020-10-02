@@ -7,14 +7,10 @@
 using namespace std;
 
 
-Personnage::Personnage()
-{
-    this->name="Personne";
-}
-Personnage::Personnage(string n)
+Personnage::Personnage(string n="Personne")
 {
   this->name=n;
-  this->parle("Bonjour, je suis " + n + " et je viens d'arriver en ville.");
+  //this->parle("Bonjour, je suis " + n + " et je viens d'arriver en ville.");
 }
 
 void Personnage::setNom(string name)
