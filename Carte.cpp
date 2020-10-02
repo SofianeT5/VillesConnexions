@@ -1,6 +1,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 #include "Carte.h"
 using namespace std;
 

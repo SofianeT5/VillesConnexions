@@ -9,7 +9,7 @@
 class Scenario{
  private:
   Carte carte;
-  Personnage* personnages;
+  Personnage** personnages;
   long nbPers;
 
  public:
