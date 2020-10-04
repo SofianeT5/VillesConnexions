@@ -114,38 +114,37 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
       file.pop();
 
       if (mt == TRAIN)
-      {
-        for(int i = 0 ; i < N ; i++)
-        {
-          if ( current->train[i] == NULL || visited.find(current->train[i]) != visited.end())
-            continue;
-          if (current->estAccessible(TRAIN,*(current->train[i]))) 
-          {
-              if ( current->train[i] == &l)
-                  return distance+1;
-              file.push(std::make_pair(current->train[i],distance+1));
-              visited.insert(current->train[i]);
-          }
-        }
-      }
-
-      else
-      {
-        for(int i = 0 ; i < N ; i++)
-        {
-          if ( current->bateau[i] == NULL || visited.find(current->bateau[i]) != visited.end())
-            continue;
-          if (current->estAccessible(TRAIN,*(current->bateau[i]))) 
-          {
-              if ( current->bateau[i] == &l)
-                  return distance+1;
-              file.push(std::make_pair(current->bateau[i],distance+1));
-              visited.insert(current->bateau[i]);
-          }
-        }
-
-      }
-
+	{
+	  for(int i = 0 ; i < N ; i++)
+	    {
+	      if ( current->train[i] == NULL || visited.find(current->train[i]) != visited.end())
+		continue;
+	      if (current->estAccessible(TRAIN,*(current->train[i]))) 
+		{
+		  if ( current->train[i] == &l)
+		    return distance+1;
+		  file.push(std::make_pair(current->train[i],distance+1));
+		  visited.insert(current->train[i]);
+		}
+	    }
+	}
+      
+      else if (mt == BATEAU)
+	{
+	  for(int i = 0 ; i < N ; i++)
+	    {
+	      if ( current->bateau[i] == NULL || visited.find(current->bateau[i]) != visited.end())
+		continue;
+	      if (current->estAccessible(TRAIN,*(current->bateau[i]))) 
+		{
+		  if ( current->bateau[i] == &l)
+		    return distance+1;
+		  file.push(std::make_pair(current->bateau[i],distance+1));
+		  visited.insert(current->bateau[i]);
+		}
+	    }
+	  
+	}
     }
     return -1;
 }

@@ -12,12 +12,16 @@ class Personnage{
   std::string text;
 
  public:
+  std::string type;
   Lieu* lieu;
   Personnage();
-  Personnage(std::string);
+  Personnage(std::string, Lieu*, std::string);
   void parle(const std::string);
   void deplace(connectionType_t mt, const Lieu* l);
+  void interagir(Personnage**, int);
+  virtual void interagit (Personnage&);
   void setNom(std::string name);
+  std::string getNom();
   ~Personnage();
 };
 
