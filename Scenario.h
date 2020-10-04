@@ -8,19 +8,19 @@
 
 class Scenario{
  private:
-  Carte carte;
   Personnage** personnages;
   long nbPers;
 
  public:
+  Carte carte;
   Scenario();
   ~Scenario();
-  Carte getCarte();
   Personnage getPersonnage(std::string name);
   long getNbPers();
   void initPersonnages();
   void initCarte();
   void initScenario();
+  void scene();
 };
 
 #endif

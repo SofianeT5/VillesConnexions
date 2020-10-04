@@ -12,13 +12,14 @@ Carte::Carte()
 
 Carte::~Carte()
 {
-  cout << "Carte détruite." << endl;
+  //  cout << "Carte détruite." << endl;
 }
 
 Lieu* Carte::addLieu(string name)
 {
   Lieu* l = new Lieu(name);
   this->villes[l->numero]=l;
+  this->nbVilles++;
   return l;
 }
 
