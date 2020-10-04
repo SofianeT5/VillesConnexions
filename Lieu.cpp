@@ -14,15 +14,10 @@ Lieu::Lieu(string n="nulle part")
 {
   this->name=n;
   this->numero=compteur;
-  this->bateau = new Lieu*[N];
-  this->train = new Lieu*[N];
+  this->bateau = new Lieu*[0];
+  this->train = new Lieu*[0];
   this->nbBateau=0;
   this->nbTrain=0;
-
-  for (int i = 0 ; i < N ; i++ ) {
-    this->bateau[i] = NULL;
-    this->train[i] = NULL;
-  }
 
   Lieu::compteur++;
 }
@@ -45,53 +40,111 @@ void Lieu::addConnexion(connectionType_t mt, Lieu* l)
 {
   if (mt==BATEAU)
     {
-      this->bateau[l->numero]=l;
-      l->bateau[this->numero]=this;
+      int i = 0;
+      Lieu** tmp = new Lieu*[this->nbBateau+1];
+      for (i = 0; i < this->nbBateau ; i++)
+      {
+        tmp[i] = this->bateau[i];
+      }
+      tmp[i]=l;
+      delete[] this->bateau;
+      this->bateau = tmp;
       this->nbBateau++;
-      l->nbBateau++;
     }
   if (mt==TRAIN)
     {
-      this->train[l->numero]=l;
-      l->train[this->numero]=this;
+      int i = 0;
+      Lieu** tmp = new Lieu*[this->nbTrain+1];
+      for (i = 0; i < this->nbTrain ; i++)
+      {
+        tmp[i] = this->train[i];
+      }
+      tmp[i]=l;
+      delete[] this->train;
+      this->train = tmp;
       this->nbTrain++;
-      l->nbTrain++;
+
     }
-  /*Peut etre si on a mt == ALL, on devrait l'ajouter aux deux tableaux*/
 }
 
 void Lieu::removeConnexion(connectionType_t mt, Lieu* l)
 {
-  if (mt==BATEAU && (this->bateau[l->numero]==l || l->bateau[this->numero]==this))
+
+  int j;
+  if (mt==BATEAU || mt == ALL)
     {
-      this->bateau[l->numero]=NULL;
-      l->bateau[this->numero]=NULL;
-      this->nbBateau--;
-      l->nbBateau--;
+      j = 0;
+      if (this->estAccessible(mt,*l))
+      {
+        Lieu** tmp = new Lieu*[this->nbBateau - 1];
+        for (int i=0;i < nbBateau ; i++)
+        {
+            if(this->bateau[i] != l)
+            {
+                tmp[i-j] = this->bateau[i];
+            }
+            else
+            {
+              j++;
+            }
+        }
+        delete[] this->bateau;
+        this->nbBateau--;
+        this->bateau = tmp;
+      }
+      
     }
-  else if (mt==TRAIN && (this->train[l->numero]==l || l->train[this->numero]==this))
+  if (mt==TRAIN || mt == ALL)
     {
-      this->train[l->numero]=NULL;
-      l->train[this->numero]=NULL;
-      this->nbTrain--;
-      l->nbTrain--;
+      j = 0 ;
+
+      if (this->estAccessible(mt,*l))
+      {
+        Lieu** tmp = new Lieu*[this->nbTrain- 1];
+        for (int i=0;i < nbTrain ; i++)
+        {
+            if(this->train[i] != l)
+            {
+                tmp[i-j] = this->train[i];
+            }
+            else
+            {
+              j++;
+            }
+        }
+        delete[] this->train;
+        this->nbTrain--;
+        this->train = tmp;
+      }
     }
-  else
-    cout << "Connexion inexistante!" << endl;
+   if (mt == NONE)
+   {
+        cout << "Connexion inÃxistante" << endl;
+
+   }
 }
 
 bool Lieu::estAccessible(connectionType_t mt, const Lieu& l)
 {
   if (mt==NONE)
     return false;
-  if (mt==BATEAU)
-    return (this->bateau[l.numero]==&l);
-  else if (mt==TRAIN)
-    return (this->train[l.numero]==&l);
-  else if (mt==ALL)
-    return ((this->bateau[l.numero]==&l) || (this->train[l.numero]==&l));
-  else
-    return false; 
+  if (mt == TRAIN || mt == ALL)
+  {
+    for (int i = 0; i < nbTrain ; i++)
+    {
+      if (this->train[i] == &l) 
+        return true;
+    }
+  }
+  if (mt == BATEAU || mt == ALL)
+  {
+    for (int i = 0; i < nbBateau; i++)
+    {
+      if (this->bateau[i] == &l) 
+        return true;
+    }
+  }
+  return false;
 }
 
 long Lieu::distance(connectionType_t mt,const Lieu& l)
@@ -113,13 +166,13 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
       long distance = file.front().second;
       file.pop();
 
-      if (mt == TRAIN)
+      if (mt == TRAIN || mt == ALL)
       {
-        for(int i = 0 ; i < N ; i++)
+        for(int i = 0 ; i < current->nbTrain ; i++)
         {
-          if ( current->train[i] == NULL || visited.find(current->train[i]) != visited.end())
+          if (visited.find(current->train[i]) != visited.end())
             continue;
-          if (current->estAccessible(TRAIN,*(current->train[i]))) 
+          if (current->estAccessible(mt,*(current->train[i]))) 
           {
               if ( current->train[i] == &l)
                   return distance+1;
@@ -129,13 +182,13 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
         }
       }
 
-      else
+      if ( mt == BATEAU || mt == ALL)
       {
-        for(int i = 0 ; i < N ; i++)
+        for(int i = 0 ; i < current->nbBateau ; i++)
         {
-          if ( current->bateau[i] == NULL || visited.find(current->bateau[i]) != visited.end())
+          if (visited.find(current->bateau[i]) != visited.end())
             continue;
-          if (current->estAccessible(TRAIN,*(current->bateau[i]))) 
+          if (current->estAccessible(mt,*(current->bateau[i]))) 
           {
               if ( current->bateau[i] == &l)
                   return distance+1;
