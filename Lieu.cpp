@@ -166,13 +166,13 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
       long distance = file.front().second;
       file.pop();
 
-      if (mt == TRAIN || mt == ALL)
+      if (mt == TRAIN)
       {
         for(int i = 0 ; i < current->nbTrain ; i++)
         {
           if (visited.find(current->train[i]) != visited.end())
             continue;
-          if (current->estAccessible(mt,*(current->train[i]))) 
+          if (current->estAccessible(TRAIN,*(current->train[i]))) 
           {
               if ( current->train[i] == &l)
                   return distance+1;
@@ -182,13 +182,13 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
         }
       }
 
-      if ( mt == BATEAU || mt == ALL)
+      else if ( mt == BATEAU)
       {
         for(int i = 0 ; i < current->nbBateau ; i++)
         {
           if (visited.find(current->bateau[i]) != visited.end())
             continue;
-          if (current->estAccessible(mt,*(current->bateau[i]))) 
+          if (current->estAccessible(BATEAU,*(current->bateau[i]))) 
           {
               if ( current->bateau[i] == &l)
                   return distance+1;
@@ -198,7 +198,10 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
         }
 
       }
-
+    else
+    {
+        return -1;
     }
+  }
     return -1;
 }
