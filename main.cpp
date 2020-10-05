@@ -3,27 +3,22 @@
 #include <string>
 #include "Scenario.h"
 #include <time.h>
-
 using namespace std;
+
+#define NB_GANGSTER 2
+#define NB_POLICIER 4
+#define NB_PIGEON 3
 
 int main()
 {
-  /*
-  Lieu *l1 = new Lieu("Paris");
-  Lieu *l2 = new Lieu("Lyon");
-  Lieu *l3 = new Lieu("Marseille");
-  l1->addConnexion(TRAIN, l2);
-  l2->addConnexion(TRAIN, l3);
-  long distance = l1->distance(TRAIN,*(l2)) ;
-  cout << "distance : " << distance << endl;
-  delete l1;
-  delete l2;
-  delete l3;
-  */
   srand(time(NULL));
+
+  long nb_gangster=NB_GANGSTER, nb_policier=NB_POLICIER, nb_pigeon=NB_PIGEON;
+  string noms_gangster[NB_GANGSTER]={"Tobi", "Madara"};
+  string noms_policier[NB_POLICIER]={"Shisui", "Minato", "Itachi", "Kakashi"};
+  string noms_pigeon[NB_PIGEON]={"Hashirama", "Pain", "Hiruzen"};
+
   Scenario* s = new Scenario();
-  s->initScenario();
-  s->scene();
- 
+  s->simulation(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon, 5);
   return 0;
 }
