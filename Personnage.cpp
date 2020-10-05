@@ -79,3 +79,27 @@ Personnage::~Personnage()
   this->parle("Il n'y a plus rien à faire ici pour moi, " + this->name + ". Adieu!");
 }
 
+Lieu** Personnage::genererItineraire(Lieu* l, Carte c)
+{
+    //itineraire 1
+    //Brest - Bordeaux - Quimper - Rennes
+    //itineraire 2
+    //Paris - Rennes - Quimper - Bordeaux
+    //itineraire 3
+    //Londres - Douvres - Calais - Paris - Le Havre - Portsmouth
+    //
+    Lieu** itineraire[3];
+    itineraire[0] = malloc(4 * sizeof(Lieu*)); // itineraire 1
+    itineraire[1] = malloc(4 * sizeof(Lieu*)); // itineraire 2
+    itineraire[2] = malloc(6 * sizeof(Lieu*)); // itineraire 3
+
+    
+
+
+    
+
+    
+    
+
+
+}
