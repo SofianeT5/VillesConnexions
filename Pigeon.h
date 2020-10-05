@@ -20,8 +20,7 @@ class Pigeon : public Personnage{
   long visite_count;
   Carte map;
   Lieu** itineraire;
-  Lieu** genererItineraire(Lieu*, Carte);
-  Pigeon(std::string, Lieu*, std::string, Carte);
+  Pigeon(std::string, Lieu*, Lieu**, int, std::string);
   virtual void interagit(Gangster&);
   void deplace();
   void subirVol(long i);

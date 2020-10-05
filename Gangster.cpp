@@ -6,13 +6,11 @@
 #include "Carte.h"
 using namespace std;
 
-Gangster::Gangster(string name, Lieu* l, string t, Carte c, string gang) : Personnage(name, l, t)
+Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, string t, string gang) : Personnage(name, l, it, taille, t)
 {
-  this->map=c;
   this->gang=gang;
   this->recompense=rand() % 11;
   this->en_prison=false;
-  this->itineraire=genererItineraire(l, c);
   this->parle("Je suis " + this->getNom() + ", membre du gang '" + this->gang + "'.");
 }
 
@@ -70,62 +68,8 @@ void Gangster::deplace()
   int i=0;
   while (this->itineraire[i]!=this->lieu)
     i++;
-  if (i==TAILLE_ITINERAIRE-1)
+  if (i==this->tailleItineraire-1)
     i=0;
   this->Personnage::deplace(ALL, this->itineraire[i+1]);
 }
 
-Lieu** Gangster::genererItineraire(Lieu* l, Carte c)
-{
-  queue<Lieu*> file;
-  int* level = new int[c.nbVilles];
-  for (int i = 0; i < c.nbVilles ; i++)
-  {
-    level[c.villes[i]] = -1;
-  }
-
-  level[l] = 0;
-  file.push(l);
-
-  while(!file.empty())
-  {
-    Lieu* current = file.front();
-    for(int i = 0 ; i < current->nbTrain ; i++)
-    {
-        
-    }
-
-  }
-
-
-
-}
-/*
-
-Lieu** Gangster::genererItineraire(Lieu* l, Carte c)
-{
-  Lieu** itineraire=(Lieu**)malloc(TAILLE_ITINERAIRE*sizeof(Lieu*));
-  itineraire[0]=l;
-  Lieu* tmp = l;
-  long i=1, j=0;
-  while(i<TAILLE_ITINERAIRE)
-    {
-      j=rand()%(c.nbVilles);
-      if(i<TAILLE_ITINERAIRE-1 && (tmp->distance(BATEAU, *(c.villes[j]))>0 || tmp->distance(TRAIN, *(c.villes[j]))>0) && tmp!=c.villes[j])
-        {
-          itineraire[i]=c.villes[j];
-          tmp=c.villes[j];
-          i++;
-        }
-      else if (i==TAILLE_ITINERAIRE-1 && (tmp->distance(BATEAU, *(c.villes[j]))>0 || tmp->distance(TRAIN, *(c.villes[j]))>0) && ((c.villes[j])->distance(BATEAU, *itineraire[0])>0 || (c.villes[j])->distance(TRAIN, *itineraire[0])>0) && tmp!=c.villes[j] )
-        {
-          itineraire[i]=c.villes[j];
-          tmp=c.villes[j];
-          i++;
-        }
-      else
-        continue;
-    }
-  return itineraire;
-}
-*/

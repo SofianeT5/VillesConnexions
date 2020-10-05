@@ -9,10 +9,12 @@
 #include "Lieu.h"
 using namespace std;
 
-Personnage::Personnage(string n="Personne", Lieu *l=NULL, string type="AUCUN")
+Personnage::Personnage(string n="Personne", Lieu *l=NULL, Lieu** itineraire=NULL, int taille=0, string type="AUCUN")
 {
   this->name=n;
-  this->lieu=l;
+  this->itineraire = itineraire;
+  this->lieu = this->itineraire[0];
+  this->tailleItineraire = taille;
   this->type=type;
   //this->parle("Bonjour, je suis " + n + " et je viens d'arriver en ville.");
 }
@@ -61,8 +63,12 @@ void Personnage::deplace(connectionType_t mt, const Lieu* l)
 void Personnage::interagir(Personnage **p, int nb_personnes)
 {
   for (int i=0; i<nb_personnes; i++)
-    if ( (this->lieu->getNom() == p[i]->lieu->getNom()) && (this!=p[i]) )
+  {
+    cout << this->lieu->getNom() << endl;
+    cout << p[i]->lieu->getNom() << endl;
+    if ( (this->lieu->getNom() == p[i]->lieu->getNom()) && this!=p[i])
       {
+        cout << "in if" << endl;
         if (this->type=="POLICIER" && p[i]->type=="GANGSTER")
           static_cast<Policier*>(this)->Policier::interagit(static_cast<Gangster&>(*(p[i])));
         if (this->type=="GANGSTER" && p[i]->type=="GANGSTER")
@@ -70,6 +76,7 @@ void Personnage::interagir(Personnage **p, int nb_personnes)
         if (this->type=="GANGSTER" && p[i]->type=="PIGEON")
           static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Pigeon&>(*(p[i])));
       }
+  }
 }
 
 void Personnage::interagit(Personnage& p){}
@@ -79,27 +86,3 @@ Personnage::~Personnage()
   this->parle("Il n'y a plus rien à faire ici pour moi, " + this->name + ". Adieu!");
 }
 
-Lieu** Personnage::genererItineraire(Lieu* l, Carte c)
-{
-    //itineraire 1
-    //Brest - Bordeaux - Quimper - Rennes
-    //itineraire 2
-    //Paris - Rennes - Quimper - Bordeaux
-    //itineraire 3
-    //Londres - Douvres - Calais - Paris - Le Havre - Portsmouth
-    //
-    Lieu** itineraire[3];
-    itineraire[0] = malloc(4 * sizeof(Lieu*)); // itineraire 1
-    itineraire[1] = malloc(4 * sizeof(Lieu*)); // itineraire 2
-    itineraire[2] = malloc(6 * sizeof(Lieu*)); // itineraire 3
-
-    
-
-
-    
-
-    
-    
-
-
-}

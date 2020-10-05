@@ -14,8 +14,10 @@ class Personnage{
  public:
   std::string type;
   Lieu* lieu;
+  Lieu** itineraire;
+  int tailleItineraire;
   Personnage();
-  Personnage(std::string, Lieu*, std::string);
+  Personnage(std::string, Lieu*, Lieu**, int, std::string);
   void parle(const std::string);
   void deplace(connectionType_t mt, const Lieu* l);
   void interagir(Personnage**, int);

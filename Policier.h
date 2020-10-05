@@ -16,8 +16,7 @@ class Policier : public Personnage{
   std::string type;
   Carte map;
   Lieu** itineraire;
-  Lieu** genererItineraire(Lieu*, Carte);
-  Policier(std::string, Lieu*, std::string, Carte);
+  Policier(std::string, Lieu*, Lieu**, int, std::string);
   virtual long interagit (Gangster&);
   void deplace();
   void incrementePopularite();

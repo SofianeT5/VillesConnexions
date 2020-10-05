@@ -21,8 +21,7 @@ class Gangster : public Personnage{
   long temps;
   Carte map;
   Lieu** itineraire;
-  Lieu** genererItineraire(Lieu*, Carte);
-  Gangster(std::string, Lieu*, std::string, Carte, std::string);
+  Gangster(std::string, Lieu*, Lieu**, int, std::string,std::string);
   virtual void interagit(Gangster&);
   virtual void interagit(Pigeon&);
   void deplace();

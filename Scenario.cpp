@@ -20,22 +20,23 @@ void Scenario::simulation(std::string* noms_gangster, long nb_gangster, std::str
 void Scenario::scene()
 {
   for (int j=0; j<200; j++)
-    for (int i=0; i<NB_PERSOS; i++)
+    for (int i=0; i<this->nbPers; i++)
       {
-	this->personnages[i]->interagir(personnages, this->nbPers);
-	if (this->personnages[i]->type == "GANGSTER")
-	  (static_cast<Gangster*>(this->personnages[i]))->deplace();
-	else if (this->personnages[i]->type == "POLICIER")
-	  (static_cast<Policier*>(this->personnages[i]))->deplace();
-	else if (this->personnages[i]->type == "PIGEON")
-	  (static_cast<Pigeon*>(this->personnages[i]))->deplace();
-	else
-	  cout << "Erreur!" << endl;
+        this->personnages[i]->interagir(this->personnages, this->nbPers);
+        if (this->personnages[i]->type == "GANGSTER")
+          (static_cast<Gangster*>(this->personnages[i]))->deplace();
+        else if (this->personnages[i]->type == "POLICIER")
+          (static_cast<Policier*>(this->personnages[i]))->deplace();
+        else if (this->personnages[i]->type == "PIGEON")
+          (static_cast<Pigeon*>(this->personnages[i]))->deplace();
+        else
+          cout << "Erreur!" << endl;
       }
 }
 
 void Scenario::initScenario(string* noms_gangster, long nb_gangster, string* noms_policier, long nb_policier, string* noms_pigeon, long nb_pigeon) {
   this->initCarte();
+  this->initItineraires();
   this->initPersonnages(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon);
 }
 
@@ -43,12 +44,73 @@ void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* 
 {
   long i;
   for (i = 0; i<nb_gangster ; i++)
-    this->personnages[i] = new Gangster(noms_gangster[i], this->carte.villes[rand()%this->carte.nbVilles], "GANGSTER", this->carte, "Uchiha");
+  {
+    int j = rand()%NB_ITINERAIRE;
+    this->personnages[i] = new Gangster(noms_gangster[i], this->itineraires[j][0], this->itineraires[j], taille[j], "GANGSTER","Uchiha");
+  }
   for (i = 0; i<nb_policier ; i++)
-    this->personnages[i] = new Policier(noms_policier[i], this->carte.villes[rand()%this->carte.nbVilles], "POLICIER", this->carte);
+  {
+    int j = rand()%NB_ITINERAIRE;
+    this->personnages[i] = new Policier(noms_policier[i], this->itineraires[j][0], this->itineraires[j], taille[j], "POLICIER");
+  }
   for (i = 0; i<nb_pigeon ; i++)
-    this->personnages[i] = new Pigeon(noms_pigeon[i], this->carte.villes[rand()%this->carte.nbVilles], "PIGEON", this->carte);
+  {
+    int j = rand()%NB_ITINERAIRE;
+    this->personnages[i] = new Pigeon(noms_pigeon[i], this->itineraires[j][0], this->itineraires[j], taille[j], "PIGEON");
+  }
   this->nbPers=nb_gangster + nb_policier + nb_pigeon;
+}
+
+void Scenario::initItineraires()
+{
+    //itineraire 1
+    //Brest - Bordeaux - Quimper - Rennes
+    //itineraire 2
+    //Paris - Rennes - Quimper - Bordeaux
+    //itineraire 3
+    //Londres - Douvres - Calais - Paris - Le Havre - Portsmouth
+    //
+
+    const int  nombre = NB_ITINERAIRE;
+    Lieu*** itineraires = (Lieu***)malloc(nombre * sizeof(Lieu**));
+    int* taille = (int*)malloc(nombre * sizeof(int));
+    
+    taille[0] = 4;
+    taille[1] = 4;
+    taille[2] = 6;
+
+    for (int i = 0 ; i < nombre ; i++)
+    {
+      itineraires[i] = (Lieu**)malloc(taille[i] * sizeof(Lieu*)); // itineraires 1
+    }
+    
+    itineraires[0][0] = this->carte.getLieu("Brest");
+    itineraires[0][1] = this->carte.getLieu("Bordeaux");
+    itineraires[0][2] = this->carte.getLieu("Quimper");
+    itineraires[0][3] = this->carte.getLieu("Rennes");
+
+    itineraires[1][0] = this->carte.getLieu("Paris");
+    itineraires[1][1] = this->carte.getLieu("Rennes");
+    itineraires[1][2] = this->carte.getLieu("Quimper");
+    itineraires[1][3] = this->carte.getLieu("Bordeaux");
+
+    itineraires[2][0] = this->carte.getLieu("Londres");
+    itineraires[2][1] = this->carte.getLieu("Douvres");
+    itineraires[2][2] = this->carte.getLieu("Calais");
+    itineraires[2][3] = this->carte.getLieu("Paris");
+    itineraires[2][4] = this->carte.getLieu("LeHavre");
+    itineraires[2][5] = this->carte.getLieu("Portsmoutth");
+
+
+
+//    int i = rand() % nombre; // 3 etant le nombre d'itineraire qu'on a generé
+//    this->itineraire = itineraires[i];
+//    this->l = this->itineraire[0];
+//    this->tailleItineraire = taille[i];
+
+    this->itineraires = itineraires;
+    this->taille = taille;
+
 }
 
 void Scenario::initCarte()
@@ -77,4 +139,5 @@ void Scenario::initCarte()
   this->carte.villes[6]->addConnexion(TRAIN,this->carte.villes[9]);
   this->carte.villes[7]->addConnexion(TRAIN,this->carte.villes[11]);
   this->carte.villes[10]->addConnexion(TRAIN,this->carte.villes[11]);
+
 }

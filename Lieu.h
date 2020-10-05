@@ -6,7 +6,7 @@
 #include <string>
 
 #define N 12
-#define TAILLE_ITINERAIRE 5
+#define NB_ITINERAIRE 3
 #define NB_PERSOS 9
 
 enum connectionType_t{NONE, TRAIN, BATEAU, ALL};

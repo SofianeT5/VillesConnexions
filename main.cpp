@@ -22,3 +22,4 @@ int main()
   s->simulation(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon, 5);
   return 0;
 }
+
