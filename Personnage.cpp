@@ -63,12 +63,12 @@ void Personnage::interagir(Personnage **p, int nb_personnes)
   for (int i=0; i<nb_personnes; i++)
     if ( (this->lieu->getNom() == p[i]->lieu->getNom()) && (this!=p[i]) )
       {
-	if (this->type=="POLICIER" && p[i]->type=="GANGSTER")
-	  static_cast<Policier*>(this)->Policier::interagit(static_cast<Gangster&>(*(p[i])));
-	if (this->type=="GANGSTER" && p[i]->type=="GANGSTER")
-	  static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Gangster&>(*(p[i])));
-	if (this->type=="GANGSTER" && p[i]->type=="PIGEON")
-	  static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Pigeon&>(*(p[i])));
+        if (this->type=="POLICIER" && p[i]->type=="GANGSTER")
+          static_cast<Policier*>(this)->Policier::interagit(static_cast<Gangster&>(*(p[i])));
+        if (this->type=="GANGSTER" && p[i]->type=="GANGSTER")
+          static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Gangster&>(*(p[i])));
+        if (this->type=="GANGSTER" && p[i]->type=="PIGEON")
+          static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Pigeon&>(*(p[i])));
       }
 }
 

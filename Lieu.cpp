@@ -159,6 +159,8 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
     file.push(std::make_pair(this,0));
     visited.insert(this);
 
+
+
     while(!file.empty()) 
     {
         
@@ -175,7 +177,10 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
           if (current->estAccessible(TRAIN,*(current->train[i]))) 
           {
               if ( current->train[i] == &l)
+              {
+                  puts("returned");
                   return distance+1;
+              }
               file.push(std::make_pair(current->train[i],distance+1));
               visited.insert(current->train[i]);
           }
@@ -191,7 +196,10 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
           if (current->estAccessible(BATEAU,*(current->bateau[i]))) 
           {
               if ( current->bateau[i] == &l)
+              {
+                  puts("returned");
                   return distance+1;
+              }
               file.push(std::make_pair(current->bateau[i],distance+1));
               visited.insert(current->bateau[i]);
           }

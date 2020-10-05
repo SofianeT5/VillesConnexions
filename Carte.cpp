@@ -7,7 +7,8 @@ using namespace std;
 
 Carte::Carte()
 {
-    this->villes =(Lieu**) malloc(N*sizeof(Lieu*));
+    this->villes = new Lieu*[0];
+    this->nbVilles = 0 ;
 }
 
 Carte::~Carte()
@@ -18,14 +19,28 @@ Carte::~Carte()
 Lieu* Carte::addLieu(string name)
 {
   Lieu* l = new Lieu(name);
-  this->villes[l->numero]=l;
+  Lieu** tmp = new Lieu*[this->nbVilles+1];
+
+  // copy
+  int i;
+
+  for (i = 0 ; i < this->nbVilles ; i++)
+  {
+    tmp[i] = this->villes[i];
+  }
+
+  tmp[i] = l;
+
+  delete[] this->villes;
+  this->villes = tmp;
+
   this->nbVilles++;
   return l;
 }
 
 Lieu* Carte::getLieu(string name)
 {
-  for (int i=0; i<N; i++)
+  for (int i=0; i< this->nbVilles; i++)
     if(this->villes[i]->getNom()==name)
       return this->villes[i];
   return NULL;
@@ -34,10 +49,12 @@ Lieu* Carte::getLieu(string name)
 void Carte::addConnexion(connectionType_t mt, Lieu* l1, Lieu* l2)
 {
   l1->Lieu::addConnexion(mt, l2);
+  l2->Lieu::addConnexion(mt, l1);
 }
 
 void Carte::removeConnexion(connectionType_t mt, Lieu* l1, Lieu* l2)
 {
   l1->Lieu::removeConnexion(mt, l2);
+  l2->Lieu::removeConnexion(mt, l1);
 }
 

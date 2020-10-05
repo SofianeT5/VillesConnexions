@@ -77,6 +77,33 @@ void Gangster::deplace()
 
 Lieu** Gangster::genererItineraire(Lieu* l, Carte c)
 {
+  queue<Lieu*> file;
+  int* level = new int[c.nbVilles];
+  for (int i = 0; i < c.nbVilles ; i++)
+  {
+    level[c.villes[i]] = -1;
+  }
+
+  level[l] = 0;
+  file.push(l);
+
+  while(!file.empty())
+  {
+    Lieu* current = file.front();
+    for(int i = 0 ; i < current->nbTrain ; i++)
+    {
+        
+    }
+
+  }
+
+
+
+}
+/*
+
+Lieu** Gangster::genererItineraire(Lieu* l, Carte c)
+{
   Lieu** itineraire=(Lieu**)malloc(TAILLE_ITINERAIRE*sizeof(Lieu*));
   itineraire[0]=l;
   Lieu* tmp = l;
@@ -101,3 +128,4 @@ Lieu** Gangster::genererItineraire(Lieu* l, Carte c)
     }
   return itineraire;
 }
+*/
