@@ -8,7 +8,7 @@
 #include "Gangster.h"
 #include "Carte.h"
 
-class Gangster;
+//class Gangster;
 
 class Pigeon : public Personnage{
  private:
@@ -21,7 +21,7 @@ class Pigeon : public Personnage{
   Carte map;
   Lieu** itineraire;
   Pigeon(std::string, Lieu*, Lieu**, int, std::string);
-  virtual void interagit(Gangster&);
+  void interagit(Personnage&);
   void deplace();
   void subirVol(long i);
   void oublierVol();

@@ -3,9 +3,6 @@
 #include <iostream>
 #include <string>
 #include "Personnage.h"
-#include "Policier.h"
-#include "Gangster.h"
-#include "Pigeon.h"
 #include "Lieu.h"
 using namespace std;
 
@@ -14,6 +11,7 @@ Personnage::Personnage(string n="Personne", Lieu *l=NULL, Lieu** itineraire=NULL
   this->name=n;
   this->itineraire = itineraire;
   this->lieu = this->itineraire[0];
+  this->position = 0;
   this->tailleItineraire = taille;
   this->type=type;
   //this->parle("Bonjour, je suis " + n + " et je viens d'arriver en ville.");
@@ -34,47 +32,59 @@ void Personnage::parle(const string text)
   cout << this->getNom() << ": " << text << endl;
 }
 
-void Personnage::deplace(connectionType_t mt, const Lieu* l)
+void Personnage::deplace()
 {
-  long b = this->lieu->distance(BATEAU,*l);
-  long t = this->lieu->distance(TRAIN,*l);
-  long n = 0;
-  if (b<t && b!=-1)
-    n=b;
-  else
-    n=t;
-  if(n==-1)
-    if(n == t)
-      this->parle("Zut! Je me suis trompé de train, celui-ci ne va pas à " + const_cast<Lieu*>(l)->getNom() + ".");
-    else
-      this->parle("Zut! Je me suis trompé de bateau, celui-ci ne va pas à " + const_cast<Lieu*>(l)->getNom() + ".");
-  else if(n==0)
-    this->parle("Je reste sur place.");
-  else
+    string moyen = "";
+
+    if (this->position == this->tailleItineraire )
     {
-      if(n == b)
-        this->parle("Je vais à " + const_cast<Lieu*>(l)->getNom() + " en prenant " + to_string(n) + " bateau(x).");
-      else
-        this->parle("Je vais à " + const_cast<Lieu*>(l)->getNom() + " en prenant " + to_string(n) + " train(s).");
-      this->lieu = const_cast<Lieu*>(l);
+      this->position = 0;
     }
+    moyen = (this->lieu->estAccessible(TRAIN,*(this->itineraire[this->position+1])))? "train" : "bateau" ;
+    this->lieu = this->itineraire[this->position++];
+    this->parle("Je vais à " + this->lieu->getNom() + " en prenant 1 "+ moyen +".");
+
+    /*
+    long b = this->lieu->distance(BATEAU,*l);
+    long t = this->lieu->distance(TRAIN,*l);
+    long n = 0;
+    if (b<t && b!=-1)
+      n=b;
+    else
+      n=t;
+    if(n==-1)
+      if(n == t)
+        this->parle("Zut! Je me suis trompé de train, celui-ci ne va pas à " + const_cast<Lieu*>(l)->getNom() + ".");
+      else
+        this->parle("Zut! Je me suis trompé de bateau, celui-ci ne va pas à " + const_cast<Lieu*>(l)->getNom() + ".");
+    else if(n==0)
+      this->parle("Je reste sur place.");
+    else
+      {
+        if(n == b)
+          this->parle("Je vais à " + const_cast<Lieu*>(l)->getNom() + " en prenant " + to_string(n) + " bateau(x).");
+        else
+          this->parle("Je vais à " + const_cast<Lieu*>(l)->getNom() + " en prenant " + to_string(n) + " train(s).");
+        this->lieu = const_cast<Lieu*>(l);
+      }
+    */
 }
 
-void Personnage::interagir(Personnage **p, int nb_personnes)
+
+void Personnage::interagir(Personnage **p, long nb_personnes)
 {
-  for (int i=0; i<nb_personnes; i++)
+  for (long i=0; i<nb_personnes; i++)
   {
-    cout << this->lieu->getNom() << endl;
-    cout << p[i]->lieu->getNom() << endl;
     if ( (this->lieu->getNom() == p[i]->lieu->getNom()) && this!=p[i])
       {
-        cout << "in if" << endl;
+        //this->interagit(*(p[i]));
         if (this->type=="POLICIER" && p[i]->type=="GANGSTER")
-          static_cast<Policier*>(this)->Policier::interagit(static_cast<Gangster&>(*(p[i])));
+          this->interagit(*(p[i]));
         if (this->type=="GANGSTER" && p[i]->type=="GANGSTER")
-          static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Gangster&>(*(p[i])));
+          this->interagit(*(p[i]));
         if (this->type=="GANGSTER" && p[i]->type=="PIGEON")
-          static_cast<Gangster*>(this)->Gangster::interagit(static_cast<Pigeon&>(*(p[i])));
+          this->interagit(*(p[i]));
+      
       }
   }
 }

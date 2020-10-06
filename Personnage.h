@@ -16,11 +16,12 @@ class Personnage{
   Lieu* lieu;
   Lieu** itineraire;
   int tailleItineraire;
+  int position;
   Personnage();
   Personnage(std::string, Lieu*, Lieu**, int, std::string);
   void parle(const std::string);
-  void deplace(connectionType_t mt, const Lieu* l);
-  void interagir(Personnage**, int);
+  void deplace();
+  void interagir(Personnage**, long);
   virtual void interagit (Personnage&);
   void setNom(std::string name);
   std::string getNom();

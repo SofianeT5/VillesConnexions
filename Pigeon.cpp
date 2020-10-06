@@ -14,7 +14,7 @@ Pigeon::Pigeon(string name , Lieu* l, Lieu** it, int taille, string t) : Personn
   this->parle("Je suis " + this->getNom() + " et je suis riche :)!");
 }
 
-void Pigeon::interagit(Gangster& p)
+void Pigeon::interagit(Personnage& p)
 {
   this->parle("Ok :)");
   this->subirVol(rand()%1001);
@@ -47,11 +47,6 @@ void Pigeon::setArgent(long i)
 
 void Pigeon::deplace()
 {
-  int i=0;
-  while (this->itineraire[i]!=this->lieu)
-    i++;
-  if (i==this->tailleItineraire-1)
-    i=0;
-  this->Personnage::deplace(ALL, this->itineraire[i+1]);
+  this->Personnage::deplace();
   this->visite_count++;
 }

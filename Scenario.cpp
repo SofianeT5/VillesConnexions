@@ -48,17 +48,27 @@ void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* 
     int j = rand()%NB_ITINERAIRE;
     this->personnages[i] = new Gangster(noms_gangster[i], this->itineraires[j][0], this->itineraires[j], taille[j], "GANGSTER","Uchiha");
   }
-  for (i = 0; i<nb_policier ; i++)
+  for (i = nb_gangster; i<nb_policier+nb_gangster; i++)
   {
     int j = rand()%NB_ITINERAIRE;
-    this->personnages[i] = new Policier(noms_policier[i], this->itineraires[j][0], this->itineraires[j], taille[j], "POLICIER");
+    this->personnages[i] = new Policier(noms_policier[i-nb_gangster], this->itineraires[j][0], this->itineraires[j], taille[j], "POLICIER");
   }
-  for (i = 0; i<nb_pigeon ; i++)
+  for (i = nb_gangster+nb_policier; i<nb_pigeon+nb_policier+nb_gangster ; i++)
   {
     int j = rand()%NB_ITINERAIRE;
-    this->personnages[i] = new Pigeon(noms_pigeon[i], this->itineraires[j][0], this->itineraires[j], taille[j], "PIGEON");
+    this->personnages[i] = new Pigeon(noms_pigeon[i-(nb_gangster+nb_policier)], this->itineraires[j][0], this->itineraires[j], taille[j], "PIGEON");
   }
   this->nbPers=nb_gangster + nb_policier + nb_pigeon;
+
+  //Free
+  for(int k = 0; k < NB_ITINERAIRE ; k++)
+  {
+    free(this->itineraires[k]);
+  }
+  free(this->itineraires);
+
+  free(this->taille);
+
 }
 
 void Scenario::initItineraires()
@@ -99,7 +109,7 @@ void Scenario::initItineraires()
     itineraires[2][2] = this->carte.getLieu("Calais");
     itineraires[2][3] = this->carte.getLieu("Paris");
     itineraires[2][4] = this->carte.getLieu("LeHavre");
-    itineraires[2][5] = this->carte.getLieu("Portsmoutth");
+    itineraires[2][5] = this->carte.getLieu("Portsmouth");
 
 
 
@@ -118,8 +128,8 @@ void Scenario::initCarte()
 
   string Villes[N] = {"Bordeaux", "Brest", "Calais", "Douvres", "Edimbourg", "LeHavre","Londres", "Paris", "Plymouth", "Portsmouth", "Quimper", "Rennes"};
 
-  Carte* map = new Carte();
-  this->carte=(*map);
+  Carte* c = new Carte();
+  this->carte = *c;
 
   for (int i = 0 ; i < N ; i++) 
     this->carte.addLieu(Villes[i]);
