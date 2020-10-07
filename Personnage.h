@@ -38,6 +38,7 @@ class Personnage{
   void setPosition(int p){this->position = p;}
   int getPosition(){return this->position;}
 
+  bool testPersonnage(Personnage&);
   
   ~Personnage();
 };

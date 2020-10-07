@@ -16,7 +16,7 @@ void Policier::interagit (Personnage& pe)
 {
   if (pe.getType() == GANGSTER)
   {
-    Gangster* p = static_cast<Gangster*>(&pe);
+    Gangster* p = dynamic_cast<Gangster*>(&pe);
 
     if (!(p->getEnPrison()))
     { 

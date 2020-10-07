@@ -18,14 +18,18 @@ void Personnage::parle(const string text)
 void Personnage::deplace()
 {
     string moyen = "";
-
-    if (this->position == this->tailleItineraire )
+    int destination;
+    if (this->position >= (this->tailleItineraire)-1 )
     {
-      this->position = 0;
+      destination = 0;
+    }else
+    {
+      destination = this->position+1;
     }
-    moyen = (this->lieu->estAccessible(TRAIN,*(this->itineraire[this->position+1])))? "train" : "bateau" ;
-    this->lieu = this->itineraire[this->position++];
-    this->parle("Je vais à " + this->lieu->getNom() + " en prenant 1 "+ moyen +".");
+    moyen = (this->lieu->estAccessible(TRAIN,*(this->itineraire[destination])))? "train" : "bateau" ;
+    this->lieu = this->itineraire[destination];
+    this->parle("Je vais à " +this->lieu->getNom() + " en prenant 1 "+ moyen +".");
+    this->position = destination;
 
 }
 
@@ -34,7 +38,7 @@ void Personnage::interagir(Personnage **p, long nb_personnes)
 {
   for (long i=0; i<nb_personnes; i++)
   {
-    if ( (this->lieu->getNom() == p[i]->lieu->getNom()) && this!=p[i])
+    if ( (this->lieu->getNom() == p[i]->getLieu()->getNom()) && this!=p[i])
       {
         if (this->type==POLICIER && p[i]->getType()==GANGSTER)
           this->interagit(*(p[i]));
@@ -54,3 +58,25 @@ Personnage::~Personnage()
   this->parle("Il n'y a plus rien à faire ici pour moi, " + this->name + ". Adieu!");
 }
 
+
+bool Personnage::testPersonnage(Personnage& p)
+{
+  // On teste si sa position ne depasse pas la taille de son itineraire
+  if (this->getPosition() >= this->getTailleItineraire())
+    return false;
+
+  Lieu** itineraire = this->getItineraire();
+  int taille = this->getTailleItineraire();
+
+  this->setLieu(itineraire[0]);
+  this->setPosition(0);
+
+  // On teste si son itineraire ne contient aucun pointeur sur Lieu NULL et que la fonction deplace marche bien comme il se doit
+  for (int i = 0 ; i < this->taille; i++)
+  {
+    if (itineraire[i] == NULL || this->getLieu() != itineraire[this->getPosition()])
+      return false;
+    this->deplace();
+  }
+  return true;
+}

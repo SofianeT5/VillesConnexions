@@ -31,6 +31,7 @@ class Gangster : public Personnage{
   bool getEnPrison(){return this->en_prison;}
   long getTemps(){return this->temps;}
   void setTemps(long t){this->temps = t;}
+  bool testGangster(Gangster& p)
 };
 
 #endif

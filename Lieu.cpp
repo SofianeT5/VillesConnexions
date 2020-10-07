@@ -22,15 +22,6 @@ Lieu::Lieu(string n="nulle part")
   Lieu::compteur++;
 }
 
-string Lieu::getNom()
-{
-  return this->name;
-}
-
-void Lieu::setNom(string n){
-    this->name = n;
-}
-
 Lieu::~Lieu()
 {
   cout << "Ville n°" << this->numero << " de " << this->getNom() << " détruite." << endl;

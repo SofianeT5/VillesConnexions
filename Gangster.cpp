@@ -17,7 +17,7 @@ void Gangster::interagit(Personnage& pe)
 {
   if (pe.getType() == PIGEON)
   {
-    Pigeon* p = static_cast<Pigeon*>(&pe);
+    Pigeon* p = dynamic_cast<Pigeon*>(&pe);
 
     if(rand()%2==0)
       this->parle("Hey, " + p->getNom() + ", ça te dirait de articiper à mon culte du jus d'ananas?");
@@ -30,7 +30,7 @@ void Gangster::interagit(Personnage& pe)
   }
   if(pe.getType() == GANGSTER)
   {
-    Gangster* p = static_cast<Gangster*>(&pe);
+    Gangster* p = dynamic_cast<Gangster*>(&pe);
     if( (this->gang == p->getGang()) && (this->recompense < p->getRecompense()) )
       this->parle("Mes respects, " + p->getNom() + "-dono.");
     
@@ -63,4 +63,20 @@ void Gangster::effaceRecompense()
   this->recompense=0;
 }
 
+bool Gangster::testGangster(Gangster& p)
+{
+  // On teste si la recompense est toujours positive
+  if (this->getRecompense() < 0)
+    return false;
 
+  // On teste que la fonction emprisonne marche correctement
+  this->emprisonne();
+  if ( !en_prison)
+    return false;
+
+  this->setTemps(0);
+  
+  this->setEnPrison(false);
+
+  return true;
+}

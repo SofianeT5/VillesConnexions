@@ -17,24 +17,31 @@ void Scenario::simulation(std::string* noms_gangster, long nb_gangster, std::str
 {
   this->initScenario(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon);
   for (long i=0; i<nb_scene; i++)
+  {
     this->scene();
+  }
+
 }
 
 void Scenario::scene()
 {
-  for (int j=0; j<200; j++)
+  
+  for (int j=0; j<20; j++)
+  {
     for (int i=0; i<this->nbPers; i++)
       {
         this->personnages[i]->interagir(this->personnages, this->nbPers);
         if (this->personnages[i]->getType() == GANGSTER)
-          (static_cast<Gangster*>(this->personnages[i]))->deplace();
+          (dynamic_cast<Gangster*>(this->personnages[i]))->deplace();
         else if (this->personnages[i]->getType() == POLICIER)
-          (static_cast<Policier*>(this->personnages[i]))->deplace();
+          (dynamic_cast<Policier*>(this->personnages[i]))->deplace();
         else if (this->personnages[i]->getType() == PIGEON)
-          (static_cast<Pigeon*>(this->personnages[i]))->deplace();
+          (dynamic_cast<Pigeon*>(this->personnages[i]))->deplace();
         else
           cout << "Erreur!" << endl;
-      }
+      
+        }
+  }
 }
 
 
@@ -65,13 +72,6 @@ void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* 
   }
   this->nbPers=nb_gangster + nb_policier + nb_pigeon;
 
-  //Free
-  for(int k = 0; k < NB_ITINERAIRE ; k++)
-  {
-    free(this->itineraires[k]);
-  }
-  free(this->itineraires);
-  free(this->taille);
 }
 
 void Scenario::initItineraires()
@@ -81,8 +81,9 @@ void Scenario::initItineraires()
     //
 
     const int  nombre = NB_ITINERAIRE;
-    Lieu*** itineraires = (Lieu***)malloc(nombre * sizeof(Lieu**));
-    int* taille = (int*)malloc(nombre * sizeof(int));
+    //Lieu*** itineraires = (Lieu***)malloc(nombre * sizeof(Lieu**));
+    Lieu*** itineraires = new Lieu**[nombre];
+    int* taille = new int[3];
     
     taille[0] = 4;
     taille[1] = 4;
@@ -90,7 +91,7 @@ void Scenario::initItineraires()
 
     for (int i = 0 ; i < nombre ; i++)
     {
-      itineraires[i] = (Lieu**)malloc(taille[i] * sizeof(Lieu*)); // itineraires 1
+      itineraires[i] = new Lieu*[taille[i]];
     }
     
     itineraires[0][0] = this->carte.getLieu("Brest");
@@ -120,10 +121,8 @@ void Scenario::initCarte()
 
   string Villes[N] = {"Bordeaux", "Brest", "Calais", "Douvres", "Edimbourg", "LeHavre","Londres", "Paris", "Plymouth", "Portsmouth", "Quimper", "Rennes"};
 
-  Carte* c = new Carte();
-  this->carte = *c;
 
-  for (int i = 0 ; i < N ; i++) 
+  for (int i = 0 ; i < N ; i++)
     this->carte.addLieu(Villes[i]);
     
   this->carte.villes[0]->addConnexion(BATEAU,this->carte.villes[1]);
