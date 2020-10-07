@@ -6,14 +6,12 @@
 #include <string>
 #include "Personnage.h"
 #include "Gangster.h"
-#include "Carte.h"
 
 class Policier : public Personnage{
  private:
   long reputation;
   
  public:
-  Carte map;
   Policier(std::string, Lieu*, Lieu**, int, type_t);
   void interagit (Personnage&);
   void incrementePopularite();

@@ -6,7 +6,6 @@
 #include <string>
 #include "Personnage.h"
 #include "Pigeon.h"
-#include "Carte.h"
 
 
 class Gangster : public Personnage{
@@ -18,7 +17,6 @@ class Gangster : public Personnage{
 
  public:
   Gangster(std::string, Lieu*, Lieu**, int, type_t,std::string);
-  Carte map;
   void interagit(Personnage&);
   void emprisonne();
   void evade();

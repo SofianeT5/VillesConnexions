@@ -169,7 +169,6 @@ long Lieu::distance(connectionType_t mt,const Lieu& l)
           {
               if ( current->train[i] == &l)
               {
-                  puts("returned");
                   return distance+1;
               }
               file.push(std::make_pair(current->train[i],distance+1));

@@ -5,7 +5,6 @@
 #include <iomanip>
 #include <string>
 #include "Gangster.h"
-#include "Carte.h"
 
 
 class Pigeon : public Personnage{
@@ -16,7 +15,6 @@ class Pigeon : public Personnage{
   
  public:
   Pigeon(std::string, Lieu*, Lieu**, int, type_t);
-  Carte map;
   void interagit(Personnage&);
   void deplace();
   void subirVol(long i);

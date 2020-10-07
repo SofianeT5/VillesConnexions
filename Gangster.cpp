@@ -11,6 +11,7 @@ Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, type_t t, string
   this->recompense=rand() % 11;
   this->en_prison=false;
   this->parle("Je suis " + this->getNom() + ", membre du gang '" + this->gang + "'.");
+  this->temps = 0;
 }
 
 void Gangster::interagit(Personnage& pe)

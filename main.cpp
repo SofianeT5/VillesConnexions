@@ -5,20 +5,17 @@
 #include <time.h>
 using namespace std;
 
-#define NB_GANGSTER 2
-#define NB_POLICIER 4
-#define NB_PIGEON 3
 
 int main()
 {
   srand(time(NULL));
 
-  int nb_gangster=NB_GANGSTER, nb_policier=NB_POLICIER, nb_pigeon=NB_PIGEON;
-  string noms_gangster[NB_GANGSTER]={"Tobi", "Madara"};
-  string noms_policier[NB_POLICIER]={"Shisui", "Minato", "Itachi", "Kakashi"};
-  string noms_pigeon[NB_PIGEON]={"Hashirama", "Pain", "Hiruzen"};
+  string noms_gangster[]={"Tobi", "Madara"};
+  string noms_policier[]={"Shisui", "Minato", "Itachi", "Kakashi"};
+  string noms_pigeon[]={"Hashirama", "Pain", "Hiruzen"};
 
-  Scenario* s = new Scenario(nb_gangster+nb_policier+nb_pigeon);
+  int nb_gangster=sizeof(noms_gangster)/sizeof(string), nb_policier=sizeof(noms_policier)/sizeof(string), nb_pigeon=sizeof(noms_pigeon)/sizeof(string);
+  Scenario* s = new Scenario(nb_gangster,nb_policier,nb_pigeon,noms_gangster,noms_policier,noms_pigeon);
   s->simulation(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon, 5);
   return 0;
 }

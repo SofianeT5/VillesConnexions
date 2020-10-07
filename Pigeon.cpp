@@ -23,6 +23,8 @@ void Pigeon::interagit(Personnage& p)
 void Pigeon::subirVol(long i)
 {
   this->setArgent(getArgent()-i);
+  if (this->argent < 0)
+    this->argent = 0;
 }
 
 void Pigeon::oublierVol()

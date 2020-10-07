@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <iomanip>
 #include "Scenario.h"
 #include "Policier.h"
 #include "Gangster.h"
@@ -6,28 +6,30 @@
 
 using namespace std;
 
-
-Scenario::Scenario(int nombre):nbPers(0)
+Scenario::Scenario(int nbgangster,int nbpolicier, int nbpigeon,string* nomG, string* nomPo, string* nomPi):nbGangster(nbgangster), nbPolicier(nbpolicier),nbPigeon(nbpigeon),nbPers(nbgangster+nbpolicier+nbpigeon),nomsGangster(nomG), nomsPolicier(nomPo), nomsPigeon(nomPi)
 {
-  this->personnages = (Personnage**) malloc(nombre*sizeof(Personnage*)); 
+  this->personnages = (Personnage**) malloc(this->nbPers*sizeof(Personnage*)); 
 }
 
 
 void Scenario::simulation(std::string* noms_gangster, long nb_gangster, std::string* noms_policier, long nb_policier, std::string* noms_pigeon, long nb_pigeon, long nb_scene)
 {
   this->initScenario(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon);
+  cout << endl;
   for (long i=0; i<nb_scene; i++)
   {
+    cout << "Scene " << i+1 << ":" << endl << endl;
+    this->resetPersonnages();
     this->scene();
+    cout << endl;
   }
-
 }
 
 void Scenario::scene()
 {
   
-  for (int j=0; j<20; j++)
-  {
+  for (int j = 0 ; j < 15 ; j ++)
+  
     for (int i=0; i<this->nbPers; i++)
       {
         this->personnages[i]->interagir(this->personnages, this->nbPers);
@@ -40,10 +42,8 @@ void Scenario::scene()
         else
           cout << "Erreur!" << endl;
       
-        }
-  }
+      }
 }
-
 
 void Scenario::initScenario(string* noms_gangster, long nb_gangster, string* noms_policier, long nb_policier, string* noms_pigeon, long nb_pigeon) {
   this->initCarte();
@@ -51,6 +51,19 @@ void Scenario::initScenario(string* noms_gangster, long nb_gangster, string* nom
   this->initPersonnages(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon);
 }
 
+void Scenario::destroyPersonnages()
+{
+    for(int i = 0 ; i < this->nbPers ; i++)
+    {
+        delete this->personnages[i];
+    }
+}
+
+void Scenario::resetPersonnages()
+{
+  this->destroyPersonnages();
+  this->initPersonnages(nomsGangster,nbGangster,nomsPolicier,nbPolicier,nomsPigeon,nbPigeon);
+}
 
 void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* noms_policier, long nb_policier, string* noms_pigeon, long nb_pigeon) 
 {
@@ -81,7 +94,6 @@ void Scenario::initItineraires()
     //
 
     const int  nombre = NB_ITINERAIRE;
-    //Lieu*** itineraires = (Lieu***)malloc(nombre * sizeof(Lieu**));
     Lieu*** itineraires = new Lieu**[nombre];
     int* taille = new int[3];
     
@@ -118,11 +130,10 @@ void Scenario::initItineraires()
 
 void Scenario::initCarte()
 {
+  string Villes[] = {"Bordeaux", "Brest", "Calais", "Douvres", "Edimbourg", "LeHavre","Londres", "Paris", "Plymouth", "Portsmouth", "Quimper", "Rennes"};
+  int nbVilles = sizeof(Villes)/sizeof(string);
 
-  string Villes[N] = {"Bordeaux", "Brest", "Calais", "Douvres", "Edimbourg", "LeHavre","Londres", "Paris", "Plymouth", "Portsmouth", "Quimper", "Rennes"};
-
-
-  for (int i = 0 ; i < N ; i++)
+  for (int i = 0 ; i < nbVilles ; i++)
     this->carte.addLieu(Villes[i]);
     
   this->carte.getVilles()[0]->addConnexion(BATEAU,this->carte.getVilles()[1]);
