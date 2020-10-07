@@ -2,11 +2,10 @@
 #include <string>
 #include <stdlib.h>
 #include "Pigeon.h"
-#include "Gangster.h"
-#include "Carte.h"
+
 using namespace std;
 
-Pigeon::Pigeon(string name , Lieu* l, Lieu** it, int taille, string t) : Personnage(name, l, it, taille, t)
+Pigeon::Pigeon(string name , Lieu* l, Lieu** it, int taille, type_t t) : Personnage(name, l, it, taille, t)
 {
   this->argent=rand() % 1001;
   this->vol_count=0;
@@ -35,15 +34,6 @@ void Pigeon::oublierVol()
     }
 }
 
-long Pigeon::getArgent()
-{
-  return this->argent;
-}
-
-void Pigeon::setArgent(long i)
-{
-  this->argent=i;
-}
 
 void Pigeon::deplace()
 {

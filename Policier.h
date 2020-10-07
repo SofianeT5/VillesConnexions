@@ -13,15 +13,13 @@ class Policier : public Personnage{
   long reputation;
   
  public:
-  std::string type;
   Carte map;
-  Lieu** itineraire;
-  Policier(std::string, Lieu*, Lieu**, int, std::string);
+  Policier(std::string, Lieu*, Lieu**, int, type_t);
   void interagit (Personnage&);
   void incrementePopularite();
   void decrementePopularite();
-  long getRep();
-  void setRep(long);
+  long getRep(){return this->reputation;}
+  void setRep(long rep){this->reputation = rep;}
 };
 
 #endif

@@ -2,30 +2,20 @@
 #include <string>
 #include <stdlib.h>
 #include "Gangster.h"
-#include "Pigeon.h"
-#include "Carte.h"
 
 using namespace std;
 
-Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, string t, string gang) : Personnage(name, l, it, taille, t)
+Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, type_t t, string gang) : Personnage(name, l, it, taille, t)
 {
   this->gang=gang;
-  this->recompense=rand() % 11;
+  this->recompense=rand() % 10;
   this->en_prison=false;
   this->parle("Je suis " + this->getNom() + ", membre du gang '" + this->gang + "'.");
 }
 
-/*
-void Gangster::interagit(Gangster& p)
-{
-  if( (this->gang == p.gang) && (this->getRecompense() < p.getRecompense()) )
-    this->parle("Mes respects, " + p.getNom() + "-dono.");
-}
-*/
-
 void Gangster::interagit(Personnage& pe)
 {
-  if (pe.type == "PIGEON")
+  if (pe.getType() == PIGEON)
   {
     Pigeon* p = static_cast<Pigeon*>(&pe);
 
@@ -33,15 +23,15 @@ void Gangster::interagit(Personnage& pe)
       this->parle("Hey, " + p->getNom() + ", ça te dirait de articiper à mon culte du jus d'ananas?");
     else
       this->parle("Hey, " + p->getNom() + ", viens voir ma mine de charbon, on y est confortable!");
-    if(p->vol_count<2)
+    if(p->getVolCount()<2)
       p->interagit(*this);
     else
       p->oublierVol();
   }
-  if(pe.type == "GANGSTER")
+  if(pe.getType() == GANGSTER)
   {
     Gangster* p = static_cast<Gangster*>(&pe);
-    if( (this->gang == p->gang) && (this->getRecompense() < p->getRecompense()) )
+    if( (this->gang == p->getGang()) && (this->recompense < p->getRecompense()) )
       this->parle("Mes respects, " + p->getNom() + "-dono.");
     
   }
@@ -71,11 +61,6 @@ void Gangster::augmenteRecompense()
 void Gangster::effaceRecompense()
 {
   this->recompense=0;
-}
-
-long Gangster::getRecompense()
-{
-  return this->recompense;
 }
 
 

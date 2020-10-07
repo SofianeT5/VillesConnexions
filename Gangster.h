@@ -8,27 +8,29 @@
 #include "Pigeon.h"
 #include "Carte.h"
 
-class Pigeon;
 
 class Gangster : public Personnage{
  private:
   long recompense;
-
- public:
-  std::string type;
   std::string gang;
   bool en_prison;
   long temps;
+
+ public:
+  Gangster(std::string, Lieu*, Lieu**, int, type_t,std::string);
   Carte map;
-  Lieu** itineraire;
-  Gangster(std::string, Lieu*, Lieu**, int, std::string,std::string);
-  //virtual void interagit(Gangster&);
   void interagit(Personnage&);
   void emprisonne();
   void evade();
   void augmenteRecompense();
   void effaceRecompense();
-  long getRecompense();
+  long getRecompense(){return this->recompense;}
+  void setRecompense(long r){this->recompense = r;}
+  std::string getGang(){return this->gang;}
+  void setGang(std::string g){this->gang = g;}
+  bool getEnPrison(){return this->en_prison;}
+  long getTemps(){return this->temps;}
+  void setTemps(long t){this->temps = t;}
 };
 
 #endif
