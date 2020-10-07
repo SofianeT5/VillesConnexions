@@ -22,6 +22,7 @@ class Gangster : public Personnage{
   void interagit(Personnage&);
   void emprisonne();
   void evade();
+  void deplace();
   void augmenteRecompense();
   void effaceRecompense();
   long getRecompense(){return this->recompense;}
@@ -29,9 +30,10 @@ class Gangster : public Personnage{
   std::string getGang(){return this->gang;}
   void setGang(std::string g){this->gang = g;}
   bool getEnPrison(){return this->en_prison;}
+  void setEnPrison(bool b){this->en_prison=b;}
   long getTemps(){return this->temps;}
   void setTemps(long t){this->temps = t;}
-  bool testGangster(Gangster& p)
+  bool testGangster(Gangster& p);
 };
 
 #endif

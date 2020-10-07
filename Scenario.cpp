@@ -7,9 +7,9 @@
 using namespace std;
 
 
-Scenario::Scenario():nbPers(0)
+Scenario::Scenario(int nombre):nbPers(0)
 {
-  this->personnages = (Personnage**) malloc(NB_PERSOS*sizeof(Personnage*)); 
+  this->personnages = (Personnage**) malloc(nombre*sizeof(Personnage*)); 
 }
 
 
@@ -125,20 +125,20 @@ void Scenario::initCarte()
   for (int i = 0 ; i < N ; i++)
     this->carte.addLieu(Villes[i]);
     
-  this->carte.villes[0]->addConnexion(BATEAU,this->carte.villes[1]);
-  this->carte.villes[0]->addConnexion(TRAIN,this->carte.villes[7]);
-  this->carte.villes[0]->addConnexion(TRAIN,this->carte.villes[10]);
-  this->carte.villes[1]->addConnexion(BATEAU,this->carte.villes[8]);
-  this->carte.villes[1]->addConnexion(TRAIN,this->carte.villes[11]);
-  this->carte.villes[2]->addConnexion(BATEAU,this->carte.villes[3]);
-  this->carte.villes[2]->addConnexion(TRAIN,this->carte.villes[7]);
-  this->carte.villes[3]->addConnexion(TRAIN,this->carte.villes[6]);
-  this->carte.villes[4]->addConnexion(TRAIN,this->carte.villes[6]);
-  this->carte.villes[5]->addConnexion(BATEAU,this->carte.villes[7]);
-  this->carte.villes[5]->addConnexion(BATEAU,this->carte.villes[9]);
-  this->carte.villes[6]->addConnexion(TRAIN,this->carte.villes[8]);
-  this->carte.villes[6]->addConnexion(TRAIN,this->carte.villes[9]);
-  this->carte.villes[7]->addConnexion(TRAIN,this->carte.villes[11]);
-  this->carte.villes[10]->addConnexion(TRAIN,this->carte.villes[11]);
+  this->carte.getVilles()[0]->addConnexion(BATEAU,this->carte.getVilles()[1]);
+  this->carte.getVilles()[0]->addConnexion(TRAIN,this->carte.getVilles()[7]);
+  this->carte.getVilles()[0]->addConnexion(TRAIN,this->carte.getVilles()[10]);
+  this->carte.getVilles()[1]->addConnexion(BATEAU,this->carte.getVilles()[8]);
+  this->carte.getVilles()[1]->addConnexion(TRAIN,this->carte.getVilles()[11]);
+  this->carte.getVilles()[2]->addConnexion(BATEAU,this->carte.getVilles()[3]);
+  this->carte.getVilles()[2]->addConnexion(TRAIN,this->carte.getVilles()[7]);
+  this->carte.getVilles()[3]->addConnexion(TRAIN,this->carte.getVilles()[6]);
+  this->carte.getVilles()[4]->addConnexion(TRAIN,this->carte.getVilles()[6]);
+  this->carte.getVilles()[5]->addConnexion(BATEAU,this->carte.getVilles()[7]);
+  this->carte.getVilles()[5]->addConnexion(BATEAU,this->carte.getVilles()[9]);
+  this->carte.getVilles()[6]->addConnexion(TRAIN,this->carte.getVilles()[8]);
+  this->carte.getVilles()[6]->addConnexion(TRAIN,this->carte.getVilles()[9]);
+  this->carte.getVilles()[7]->addConnexion(TRAIN,this->carte.getVilles()[11]);
+  this->carte.getVilles()[10]->addConnexion(TRAIN,this->carte.getVilles()[11]);
 
 }

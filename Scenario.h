@@ -15,7 +15,7 @@ class Scenario{
   Lieu*** itineraires;
 
  public:
-  Scenario();
+  Scenario(int);
   ~Scenario();
   Personnage getPersonnage(std::string name);
   void initPersonnages(std::string* noms_gangster, long nb_gangster, std::string* noms_policier, long nb_policier, std::string* noms_pigeon, long nb_pigeon);
