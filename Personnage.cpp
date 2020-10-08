@@ -71,10 +71,10 @@ bool Personnage::testPersonnage(Personnage& p)
   this->setLieu(itineraire[0]);
   this->setPosition(0);
 
-  // On teste si son itineraire ne contient aucun pointeur sur Lieu NULL et que la fonction deplace marche bien comme il se doit
+  // On teste si son itineraire ne contient aucun pointeur NULL sur Lieu et que la fonction deplace marche bien comme il se doit
   for (int i = 0 ; i < taille; i++)
   {
-    if (itineraire[i] == NULL || this->getLieu() != itineraire[this->getPosition()])
+    if (itineraire[i] == NULL || this->getLieu() != this->itineraire[this->getPosition()])
       return false;
     this->deplace();
   }

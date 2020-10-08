@@ -136,6 +136,15 @@ void Scenario::initItineraires()
 
 }
 
+void Scenario::~Scenario()
+{
+    for ( int i = 0 ; i < this->nbPers ; i++)
+        delete this->personnages[i];
+    delete[] this->personnages;
+
+    for (
+}
+
 void Scenario::initCarte()
 {
   string Villes[] = {"Bordeaux", "Brest", "Calais", "Douvres", "Edimbourg", "LeHavre","Londres", "Paris", "Plymouth", "Portsmouth", "Quimper", "Rennes"};
