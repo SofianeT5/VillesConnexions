@@ -13,14 +13,14 @@ class Lieu{
   Lieu** bateau;
   Lieu** train;
   std::string name;
-
- public:
-  Lieu();
-  Lieu(std::string);
   long numero;
   long nbBateau;
   long nbTrain;
   static long compteur;
+
+ public:
+  Lieu();
+  Lieu(std::string);
   void addConnexion(connectionType_t, Lieu*);
   void removeConnexion(connectionType_t, Lieu*);
   bool estAccessible(connectionType_t, const Lieu&);
@@ -29,6 +29,12 @@ class Lieu{
 
   void setNom(std::string n){this->name = n;}
   std::string getNom(){return this->name;}
+  Lieu** getBateau(){return this->bateau;}
+  Lieu** getTrain(){return this->train;}
+  long getNbBateau(){return this->nbBateau;}
+  long getNbTrain(){return this->nbTrain;}
+  void setNbBateau(long n){this->nbBateau=n;}
+  void setNbTrain(long n){this->nbTrain=n;}
   
 
 };

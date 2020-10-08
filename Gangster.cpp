@@ -22,7 +22,7 @@ void Gangster::interagit(Personnage& pe)
     {
       Pigeon* p = dynamic_cast<Pigeon*>(&pe);
       if(rand()%2==0)
-        this->parle("Hey, " + p->getNom() + ", ça te dirait de articiper à mon culte du jus d'ananas?");
+        this->parle("Hey, " + p->getNom() + ", ça te dirait de participer à mon culte du jus d'ananas?");
       else
         this->parle("Hey, " + p->getNom() + ", viens voir ma mine de charbon, on y est confortable!");
       if(p->getVolCount()<2)

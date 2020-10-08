@@ -11,9 +11,9 @@ int main()
 {
   srand(time(NULL));
 
-  string noms_gangster[]={"Tobi", "Madara"};
-  string noms_policier[]={"Shisui", "Minato", "Itachi", "Kakashi"};
-  string noms_pigeon[]={"Hashirama", "Pain", "Hiruzen"};
+  string noms_gangster[]={"Kabutooo","Orochimaru","Tobi", "Madara"};
+  string noms_policier[]={"Konohamaru","Shisui", "Minato", "Itachi", "Kakashi"};
+  string noms_pigeon[]={"KillerBee","Sasuke","Hashirama", "Pain", "Hiruzen"};
 
   int nb_gangster=sizeof(noms_gangster)/sizeof(string), nb_policier=sizeof(noms_policier)/sizeof(string), nb_pigeon=sizeof(noms_pigeon)/sizeof(string);
   Scenario* s = new Scenario(nb_gangster,nb_policier,nb_pigeon,noms_gangster,noms_policier,noms_pigeon);
