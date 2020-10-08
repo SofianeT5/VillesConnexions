@@ -13,7 +13,9 @@ Carte::Carte()
 
 Carte::~Carte()
 {
-  //  cout << "Carte détruite." << endl;
+  for (int i = 0 ; i < this->nbVilles ; i++)
+    delete this->villes[i];
+  delete [] this->villes;
 }
 
 Lieu* Carte::addLieu(string name)

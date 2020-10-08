@@ -24,7 +24,8 @@ Lieu::Lieu(string n="nulle part")
 
 Lieu::~Lieu()
 {
-  cout << "Ville n°" << this->numero << " de " << this->getNom() << " détruite." << endl;
+  delete[] this->bateau;
+  delete[] this->train;
 }
 
 void Lieu::addConnexion(connectionType_t mt, Lieu* l)

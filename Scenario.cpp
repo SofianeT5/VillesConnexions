@@ -66,15 +66,9 @@ void Scenario::destroyPersonnages()
 {
     for(int i = 0 ; i < this->nbPers ; i++)
     {
-        delete this->personnages[i];
+      delete this->personnages[i];
     }
 }
-
-/*void Scenario::resetPersonnages()
-{
-  this->destroyPersonnages();
-  this->initPersonnages(nomsGangster,nbGangster,nomsPolicier,nbPolicier,nomsPigeon,nbPigeon);
-  }*/
 
 void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* noms_policier, long nb_policier, string* noms_pigeon, long nb_pigeon) 
 {
@@ -136,13 +130,13 @@ void Scenario::initItineraires()
 
 }
 
-void Scenario::~Scenario()
+Scenario::~Scenario()
 {
-    for ( int i = 0 ; i < this->nbPers ; i++)
-        delete this->personnages[i];
-    delete[] this->personnages;
-
-    for (
+  free(this->personnages);
+  for ( int i = 0 ; i < NB_ITINERAIRE ; i++)
+    delete[] this->itineraires[i];
+  delete[] this->itineraires;
+  delete[] this->taille;
 }
 
 void Scenario::initCarte()
