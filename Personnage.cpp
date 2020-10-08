@@ -12,7 +12,7 @@ Personnage::Personnage(string n="Personne", Lieu *l=NULL, Lieu** itineraire=NULL
 
 void Personnage::parle(const string text)
 {
-  cout <<setw(9) << this->getNom() << left << ": " << text << endl;
+  cout <<setw(10) << this->getNom() << left << ": " << text << endl;
 }
 
 void Personnage::deplace()

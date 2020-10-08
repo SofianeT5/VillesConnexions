@@ -32,7 +32,7 @@ void Policier::interagit (Personnage& pe)
       {
         this->decrementePopularite();
         p->augmenteRecompense();
-        p->parle("Tu crois vraiment pouvoir vaincre le gang " + p->getGang() + ".");
+        p->parle("Tu crois vraiment pouvoir vaincre le gang " + p->gangToString() + ".");
       }
     }
     else

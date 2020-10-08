@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Scenario.h"
+#include <stdlib.h>
 #include <time.h>
 using namespace std;
 

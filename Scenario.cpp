@@ -1,4 +1,5 @@
 #include <iomanip>
+#include <stdlib.h>
 #include "Scenario.h"
 #include "Policier.h"
 #include "Gangster.h"
@@ -14,13 +15,23 @@ Scenario::Scenario(int nbgangster,int nbpolicier, int nbpigeon,string* nomG, str
 
 void Scenario::simulation(std::string* noms_gangster, long nb_gangster, std::string* noms_policier, long nb_policier, std::string* noms_pigeon, long nb_pigeon, long nb_scene)
 {
+  cout << "Scene " << 1 << ":" << endl << endl;
   this->initScenario(noms_gangster, nb_gangster, noms_policier, nb_policier, noms_pigeon, nb_pigeon);
   cout << endl;
   for (long i=0; i<nb_scene; i++)
   {
-    cout << "Scene " << i+1 << ":" << endl << endl;
-    this->resetPersonnages();
+    if(i==0)
+      cout << endl;
+    else
+      {
+	cout << endl << endl << "Scene " << i+1 << ":" << endl << endl;
+	this->initPersonnages(nomsGangster,nbGangster,nomsPolicier,nbPolicier,nomsPigeon,nbPigeon);
+	cout << endl << endl;
+      }
+
     this->scene();
+    cout << endl;
+    this->destroyPersonnages();
     cout << endl;
   }
 }
@@ -59,29 +70,30 @@ void Scenario::destroyPersonnages()
     }
 }
 
-void Scenario::resetPersonnages()
+/*void Scenario::resetPersonnages()
 {
   this->destroyPersonnages();
   this->initPersonnages(nomsGangster,nbGangster,nomsPolicier,nbPolicier,nomsPigeon,nbPigeon);
-}
+  }*/
 
 void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* noms_policier, long nb_policier, string* noms_pigeon, long nb_pigeon) 
 {
   long i;
+  cout << setw(10) << left << endl;
   for (i = 0; i<nb_gangster ; i++)
   {
     int j = rand()%NB_ITINERAIRE;
-    this->personnages[i] = new Gangster(noms_gangster[i], this->itineraires[j][0], this->itineraires[j], taille[j],GANGSTER,"Uchiha");
+    this->personnages[i] = new Gangster(noms_gangster[i], this->itineraires[j][0], this->itineraires[j], taille[j], GANGSTER, static_cast<gang_t>(rand()%last_element));
   }
   for (i = nb_gangster; i<nb_policier+nb_gangster; i++)
   {
     int j = rand()%NB_ITINERAIRE;
-    this->personnages[i] = new Policier(noms_policier[i-nb_gangster], this->itineraires[j][0], this->itineraires[j], taille[j],POLICIER);
+    this->personnages[i] = new Policier(noms_policier[i-nb_gangster], this->itineraires[j][0], this->itineraires[j], taille[j], POLICIER);
   }
   for (i = nb_gangster+nb_policier; i<nb_pigeon+nb_policier+nb_gangster ; i++)
   {
     int j = rand()%NB_ITINERAIRE;
-    this->personnages[i] = new Pigeon(noms_pigeon[i-(nb_gangster+nb_policier)], this->itineraires[j][0], this->itineraires[j], taille[j],PIGEON);
+    this->personnages[i] = new Pigeon(noms_pigeon[i-(nb_gangster+nb_policier)], this->itineraires[j][0], this->itineraires[j], taille[j], PIGEON);
   }
   this->nbPers=nb_gangster + nb_policier + nb_pigeon;
 
@@ -89,10 +101,6 @@ void Scenario::initPersonnages(string* noms_gangster, long nb_gangster, string* 
 
 void Scenario::initItineraires()
 {
-    //itineraire 3
-    //Londres - Douvres - Calais - Paris - Le Havre - Portsmouth
-    //
-
     const int  nombre = NB_ITINERAIRE;
     Lieu*** itineraires = new Lieu**[nombre];
     int* taille = new int[3];

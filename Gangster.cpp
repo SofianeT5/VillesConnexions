@@ -5,12 +5,12 @@
 
 using namespace std;
 
-Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, type_t t, string gang) : Personnage(name, l, it, taille, t)
+Gangster::Gangster(string name, Lieu* l, Lieu** it, int taille, type_t t, gang_t gang) : Personnage(name, l, it, taille, t)
 {
   this->gang=gang;
   this->recompense=rand() % 11;
   this->en_prison=false;
-  this->parle("Je suis " + this->getNom() + ", membre du gang '" + this->gang + "'.");
+  this->parle("Je suis " + this->getNom() + ", membre du gang '" + this->gangToString() + "'.");
   this->temps = 0;
 }
 
@@ -45,6 +45,7 @@ void Gangster::deplace()
     if (!this->en_prison)
       this->Personnage::deplace();
 }
+
 void Gangster::emprisonne()
 {
   this->en_prison=true;
@@ -87,4 +88,17 @@ bool Gangster::testGangster(Gangster& p)
   this->setEnPrison(false);
 
   return true;
+}
+
+string Gangster::gangToString()
+{
+  string s;
+  switch (this->gang)
+    {
+    case AKATSUKI: { s = "Akatsuki"; } break;
+    case KONOHA: { s = "Konoha"; } break;
+    case SHINOBI: { s = "Shinobi"; } break;
+    case SAMURAI: { s = "Samurai"; } break;
+    }
+  return s;
 }
